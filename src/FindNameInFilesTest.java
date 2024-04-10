@@ -3,6 +3,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -84,6 +85,8 @@ class FindNameInFilesTest {
 
     @Test
     void noPermissionsError() {
+        File file = new File("resources/NoPermissions.txt");
+        assertTrue(file.setReadable(false));
         String expected = "[ERROR] File not readable: resources/NoPermissions.txt";
 
         String namesFile = "resources/Names.txt";
