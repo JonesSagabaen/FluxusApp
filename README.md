@@ -7,11 +7,15 @@ Java app that takes files as arguments and print occurrences of names found with
 * Date created: April 9, 2024
 
 ## Execution
-Compile app using `javac` and execute with arguments of file paths.  The first argument is to take the file-path of the 
-file containing a list of names.  One or more arguments after take paths of files of text where the names will be 
-searched against.
+```
+> java -classpath src/ FindNameInFiles <FileContainingNames> <TextFileToSearchIn>
+```
 
-Sample
+From the root of the project, compile app using `javac` and execute with arguments of file paths.  The first argument 
+is to take the file-path of the file containing a list of names.  One or more arguments after take paths of files of 
+text where the names will be searched against.
+
+Full Sample Commands
 ```
 > javac src/FindNamesInFiles.java
 > java -classpath src/ FindNameInFiles resources/Names.txt resources/OneNameMatch.txt
@@ -20,7 +24,7 @@ Sample
 Output is to be printed to the console.
 
 ## Tests
-Unit tests available in `src/FindNameInFilesTest.java`.  Executable in the command-line from the root of the project:
+Test class, `FindNameInFilesTests.java`, executable in the command-line from the root of the project.
 ```
 > javac --class-path lib/junit-jupiter-api-5.8.1.jar:lib/apiguardian-api-1.1.2.jar --source-path src/ src/FindNameInFilesTest.java 
 > java -jar lib/junit-platform-console-standalone-1.10.2.jar --class-path src/ --scan-classpath
