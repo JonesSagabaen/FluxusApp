@@ -138,7 +138,7 @@ class FindNameInFilesTest {
     }
 
     @Test
-    void mulitpleDuplicateFiles() {
+    void multipleDuplicateFiles() {
         String expected = "[ERROR] Duplicate files found: [DuplicateA.txt, DuplicateB.txt, DuplicateC.txt]";
 
         String namesFile = "resources/Names.txt";
