@@ -4,6 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.*;
 
 public class FindNameInFiles {
 
@@ -52,6 +53,7 @@ public class FindNameInFiles {
         }
 
         File file;
+        List<File> duplicateList = new ArrayList<>();
         for(String arg : args) {
             file = new File(arg);
             if(!file.exists()) {
@@ -62,9 +64,47 @@ public class FindNameInFiles {
                 System.out.println("[ERROR] File not readable: " + arg);
                 return true;
             }
+
+            duplicateList.add(file);
         }
+
+        String duplicateFiles = checkForDuplicateFiles(duplicateList);
+        if(!duplicateFiles.isEmpty()) {
+            System.out.println("[ERROR] Duplicate files found: " + duplicateFiles);
+            return true;
+        }
+
         System.out.println("[INFO] No errors found with the file\n");
         return false;
+    }
+
+    /**
+     * Check for duplicate files across all file arguments.
+     * @param duplicateList List of files to check for duplicates
+     * @return A string pairing all duplicate files
+     */
+    private static String checkForDuplicateFiles(List<File> duplicateList) {
+        StringBuilder result = new StringBuilder();
+        Map<Long, String> fileMap = new HashMap<>();
+        // Add all files to a map where the file size is the key
+        for (File file : duplicateList) {
+            if(fileMap.containsKey(file.length())) {
+                fileMap.put(file.length(), fileMap.get(file.length()) + ", " + file.getName());
+            }
+            else {
+                fileMap.put(file.length(), file.getName());
+            }
+        }
+
+        // Iterate through map and return key/value pairs where a list of duplicate files were found
+        for (Map.Entry<Long, String> entry : fileMap.entrySet()) {
+            Long key = entry.getKey();
+            String value = entry.getValue();
+            if(entry.getValue().contains(", "))
+                result.append("[").append(value).append("] (").append(key).append("B)");
+        }
+
+        return result.toString();
     }
 
     private static void printManPage() {

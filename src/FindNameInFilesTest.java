@@ -108,4 +108,48 @@ class FindNameInFilesTest {
         String actual = outputStreamCaptor.toString();
         assertTrue(actual.contains(expected));
     }
+
+    @Test
+    void duplicateFilePair() {
+        String expected = "[ERROR] Duplicate files found: [DuplicateA.txt, DuplicateB.txt]";
+
+        String namesFile = "resources/Names.txt";
+        String searchFile1 = "resources/DuplicateA.txt";
+        String searchFile2 = "resources/DuplicateB.txt";
+        String[] arguments = {namesFile, searchFile1, searchFile2};
+        FindNameInFiles.main(arguments);
+        String actual = outputStreamCaptor.toString();
+        assertTrue(actual.contains(expected));
+    }
+
+    @Test
+    void duplicateAmongFiles() {
+        String expected = "[ERROR] Duplicate files found: [DuplicateA.txt, DuplicateB.txt]";
+
+        String namesFile = "resources/Names.txt";
+        String searchFile1 = "resources/OneNameMatch.txt";
+        String searchFile2 = "resources/DuplicateA.txt";
+        String searchFile3 = "resources/NoNameMatch.txt";
+        String searchFile4 = "resources/DuplicateB.txt";
+        String[] arguments = {namesFile, searchFile1, searchFile2, searchFile3, searchFile4};
+        FindNameInFiles.main(arguments);
+        String actual = outputStreamCaptor.toString();
+        assertTrue(actual.contains(expected));
+    }
+
+    @Test
+    void mulitpleDuplicateFiles() {
+        String expected = "[ERROR] Duplicate files found: [DuplicateA.txt, DuplicateB.txt, DuplicateC.txt]";
+
+        String namesFile = "resources/Names.txt";
+        String searchFile1 = "resources/OneNameMatch.txt";
+        String searchFile2 = "resources/DuplicateA.txt";
+        String searchFile3 = "resources/NoNameMatch.txt";
+        String searchFile4 = "resources/DuplicateB.txt";
+        String searchFile5 = "resources/DuplicateC.txt";
+        String[] arguments = {namesFile, searchFile1, searchFile2, searchFile3, searchFile4, searchFile5};
+        FindNameInFiles.main(arguments);
+        String actual = outputStreamCaptor.toString();
+        assertTrue(actual.contains(expected));
+    }
 }
