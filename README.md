@@ -33,7 +33,7 @@ security testing if more external library dependencies get introduced.
 ## Improvements
 ### General
 Notable improvements that can be added:
-* Have unit tests executed through command-line
+* ~~Have unit tests executed through command-line~~
 * Import logging library (i.e. `Log4J`) instead of printing through `System.out`
 * Add more methods that perform data validation to files
   * Validate names file uses newline delimiter
